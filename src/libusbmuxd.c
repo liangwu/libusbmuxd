@@ -34,16 +34,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#endif
-
-#ifdef WIN32
+#ifdef _MSC_VER
   #define USBMUXD_API __declspec( dllexport )
 #else
-  #ifdef HAVE_FVISIBILITY
-    #define USBMUXD_API __attribute__((visibility("default")))
-  #else
-    #define USBMUXD_API
-  #endif
+  #define USBMUXD_API
 #endif
 
 #ifndef EPROTO
