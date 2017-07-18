@@ -8,8 +8,6 @@ matrix:
     - os: linux
       env: TARGET=x86_64-linux-gnu RID=linux-x64 CREATE_DEB=yes
     - os: linux
-      env: TARGET=arm-linux-gnueabihf RID=linux-arm CREATE_DEB=no
-    - os: linux
       env: TARGET=aarch64-linux-gnu RID=linux-arm64 CREATE_DEB-no
 
 language: c
@@ -17,9 +15,6 @@ language: c
 addons:
   apt:
     packages:
-    - gcc-arm-linux-gnueabihf
-    - binutils-arm-linux-gnueabihf
-    - g++-arm-linux-gnueabihf
     - gcc-aarch64-linux-gnu
     - binutils-aarch64-linux-gnu
     - g++-aarch64-linux-gnu
@@ -31,7 +26,7 @@ addons:
 
 env:
   global:
-  - PLIST_VERSION=1.13.0-117
+  - PLIST_VERSION=2.0.1-155
   - CFLAGS=-fPIC
   - LIBUSBMUXD_VERSION_PREFIX=1.1.0
 
