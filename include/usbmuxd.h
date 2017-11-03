@@ -75,6 +75,17 @@ enum usbmuxd_event_type {
 };
 
 /**
+ * specifies how libusbmuxd should connect to usbmuxd
+ */
+enum usbmuxd_socket_type {
+	// Use UNIX sockets. The default on Linux and macOS.
+	SOCKET_TYPE_UNIX = 1,
+
+	// Use TCP sockets. The default and only option on Windows.
+	SOCKET_TYPE_TCP = 2
+};
+
+/**
  * Event structure that will be passed to the callback function.
  * 'event' will contains the type of the event, and 'device' will contains
  * information about the device.
@@ -88,6 +99,18 @@ typedef struct {
  * Callback function prototype.
  */
 typedef void (*usbmuxd_event_cb_t) (const usbmuxd_event_t *event, void *user_data);
+
+/**
+ * Sets the socket type (Unix socket or TCP socket) libusbmuxd should use when connecting
+ * to usbmuxd.
+ */
+USBMUXD_API_MSC int usbmuxd_set_socket_type(enum usbmuxd_socket_type value);
+
+/**
+ * Gets the socket type (Unix socket or TCP socket) libusbmuxd should use when connecting
+ * to usbmuxd.
+ */
+USBMUXD_API_MSC int usbmuxd_get_socket_type(enum usbmuxd_socket_type* value);
 
 /**
  * Subscribe a callback function so that applications get to know about
