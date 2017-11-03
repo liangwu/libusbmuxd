@@ -86,6 +86,13 @@
 static int libusbmuxd_debug = 0;
 #define DEBUG(x, y, ...) if (x <= libusbmuxd_debug) fprintf(stderr, (y), __VA_ARGS__); fflush(stderr);
 
+static enum usbmuxd_socket_type socket_type =
+#if defined(WIN32) || defined(__CYGWIN__)
+	SOCKET_TYPE_TCP;
+#else
+	SOCKET_TYPE_UNIX;
+#endif
+
 static struct collection devices;
 static usbmuxd_event_cb_t event_cb = NULL;
 #ifdef WIN32
@@ -123,7 +130,11 @@ static int connect_usbmuxd_socket()
 #if defined(WIN32) || defined(__CYGWIN__)
 	return socket_connect("127.0.0.1", USBMUXD_SOCKET_PORT);
 #else
-	return socket_connect_unix(USBMUXD_SOCKET_FILE);
+	if (socket_type == SOCKET_TYPE_UNIX) {
+		return socket_connect_unix(USBMUXD_SOCKET_FILE);
+	} else {
+		return socket_connect("127.0.0.1", USBMUXD_SOCKET_PORT);
+	}
 #endif
 }
 
@@ -1327,3 +1338,30 @@ USBMUXD_API void libusbmuxd_set_debug_level(int level)
 	libusbmuxd_debug = level;
 	socket_set_verbose(level);
 }
+
+USBMUXD_API int usbmuxd_set_socket_type(enum usbmuxd_socket_type value)
+{
+#if defined(WIN32) || defined(__CYGWIN__)
+	// On Windows, the socket type is TCP by default and you cannot change it to anything else.
+	if (value != SOCKET_TYPE_TCP)
+	{
+		return -EINVAL;
+	}
+#else
+	if (value != SOCKET_TYPE_TCP && value != SOCKET_TYPE_UNIX)
+	{
+		return -EINVAL;
+	}
+
+	socket_type = value;
+#endif
+	return 0;
+}
+
+USBMUXD_API int usbmuxd_get_socket_type(enum usbmuxd_socket_type* value)
+{
+	value[0] = socket_type;
+	return 0;
+}
+
+
