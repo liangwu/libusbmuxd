@@ -1,5 +1,5 @@
 dist: trusty
-sudo: false
+sudo: true
 
 matrix:
   include:
@@ -10,18 +10,6 @@ matrix:
 
 language: c
 
-addons:
-  apt:
-    packages:
-    - gcc-aarch64-linux-gnu
-    - binutils-aarch64-linux-gnu
-    - g++-aarch64-linux-gnu
-    - devscripts
-    - debhelper
-    - dh-autoreconf
-    - dput
-    - osc
-
 env:
   global:
   - PLIST_VERSION=2.0.1-157
@@ -30,6 +18,7 @@ env:
 
 before_install:
 - test -n $CC && unset CC
+- if [ "$CREATE_DEB" = "yes" ]; then sudo apt-get install -y devscripts debhelper dh-autoreconf dput osc; fi
 
 install:
 - pip install --user azure-cli
