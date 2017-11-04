@@ -129,7 +129,7 @@ USBMUXD_API_MSC int usbmuxd_get_socket_type(enum usbmuxd_socket_type* value);
  *
  * @return 0 on success or negative on error
  */
-USBMUXD_API_MSC int usbmuxd_set_tcp_endpoint(char* host, uint16_t port);
+USBMUXD_API_MSC int usbmuxd_set_tcp_endpoint(const char* host, uint16_t port);
 
 /**
  * Gets the TCP endpoint to which usbmuxd will connect if th esocket type is set to
