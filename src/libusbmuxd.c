@@ -115,6 +115,9 @@ static enum usbmuxd_socket_type socket_type =
 	SOCKET_TYPE_UNIX;
 #endif
 
+static char* tcp_host = "127.0.0.1";
+static uint16_t tcp_port = USBMUXD_SOCKET_PORT;
+
 static struct collection devices;
 static usbmuxd_event_cb_t event_cb = NULL;
 #ifdef WIN32
@@ -194,12 +197,12 @@ static int connect_usbmuxd_socket()
 		}
 	}
 #if defined(WIN32) || defined(__CYGWIN__)
-	return socket_connect("127.0.0.1", USBMUXD_SOCKET_PORT);
+	return socket_connect(tcp_host, tcp_port);
 #else
 	if (socket_type == SOCKET_TYPE_UNIX) {
 		return socket_connect_unix(USBMUXD_SOCKET_FILE);
 	} else {
-		return socket_connect("127.0.0.1", USBMUXD_SOCKET_PORT);
+		return socket_connect(tcp_host, tcp_port);
 	}
 #endif
 }
@@ -1689,8 +1692,22 @@ USBMUXD_API int usbmuxd_set_socket_type(enum usbmuxd_socket_type value)
 
 USBMUXD_API int usbmuxd_get_socket_type(enum usbmuxd_socket_type* value)
 {
-	value[0] = socket_type;
+	*value = socket_type;
 	return 0;
 }
 
+USBMUXD_API_MSC int usbmuxd_set_tcp_endpoint(char* host, uint16_t port)
+{
+	free(tcp_host);
+	tcp_host = strdup(host);
+	tcp_port = port;
+	return 0;
+}
+
+USBMUXD_API_MSC int usbmuxd_get_tcp_endpoint(char** host, uint16_t* port)
+{
+	*host = strdup(tcp_host);
+	*port = tcp_port;
+	return 0;
+}
 

@@ -103,14 +103,45 @@ typedef void (*usbmuxd_event_cb_t) (const usbmuxd_event_t *event, void *user_dat
 /**
  * Sets the socket type (Unix socket or TCP socket) libusbmuxd should use when connecting
  * to usbmuxd.
+ *
+ * @param value SOCKET_TYPE_UNIX or SOCKET_TYPE_TCP
+ *
+ * @return 0 on success or negative on error
  */
 USBMUXD_API_MSC int usbmuxd_set_socket_type(enum usbmuxd_socket_type value);
 
 /**
  * Gets the socket type (Unix socket or TCP socket) libusbmuxd should use when connecting
  * to usbmuxd.
+ *
+ * @param value A pointer to an integer which will reveive the current socket type
+ *
+ * @return 0 on success or negative on error
  */
 USBMUXD_API_MSC int usbmuxd_get_socket_type(enum usbmuxd_socket_type* value);
+
+/**
+ * Sets the TCP endpoint to which usbmuxd will connect if the socket type is set to
+ * SOCKET_TYPE_TCP
+ *
+ * @param host The hostname or IP address to which to connect
+ * @param port The port to which to connect.
+ *
+ * @return 0 on success or negative on error
+ */
+USBMUXD_API_MSC int usbmuxd_set_tcp_endpoint(char* host, uint16_t port);
+
+/**
+ * Gets the TCP endpoint to which usbmuxd will connect if th esocket type is set to
+ * SOCKET_TYPE_TCP
+ *
+ * @param host A pointer which will be set to the hostname or IP address to which to connect.
+ *             The caller must free this string.
+ * @param port The port to which to connect
+ *
+ * @return 0 on success or negative on error
+ */
+USBMUXD_API_MSC int usbmuxd_get_tcp_endpoint(char** host, uint16_t* port);
 
 /**
  * Subscribe a callback function so that applications get to know about
