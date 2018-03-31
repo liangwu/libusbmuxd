@@ -1,6 +1,8 @@
 #!/bin/sh
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+git clean -xfd
+
 export DEBEMAIL="frederik.carlier@quamotion.mobi"
 export DEBFULLNAME="Frederik Carlier"
 
@@ -10,8 +12,6 @@ git config --global user.email "$DEBEMAIL"
 dch -v "1.11.$TRAVIS_BUILD_NUMBER-0$1" --distribution $1 "Travis CI Build"
 git add debian/changelog
 git commit -m "Travis CI Build"
-
-git clean -xfd
 
 git archive --format tar.gz -o ../libusbmuxd_1.11.${TRAVIS_BUILD_NUMBER}.orig.tar.gz HEAD
 
