@@ -21,7 +21,8 @@ before_install:
 - if [ "$CREATE_DEB" = "yes" ]; then sudo apt-get install -y devscripts debhelper dh-autoreconf dput osc; fi
 
 install:
-- pip install --user azure-cli
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then pip2 install --user azure-cli; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then pip install --user azure-cli; fi
 
 before_script:
 - wget https://qmcdn.blob.core.windows.net/imobiledevice/libplist-$RID-$PLIST_VERSION.tar.gz
