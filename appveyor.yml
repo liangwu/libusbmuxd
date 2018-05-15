@@ -5,8 +5,8 @@ before_build:
   - vcpkg version
   - git clone -q --depth 1 -b ports/libimobiledevice https://github.com/libimobiledevice-win32/vcpkg %VCPKG_ROOT%
   - cmd: "%VCPKG_ROOT%\\bootstrap-vcpkg.bat"
-  - cmd: "%VCPKG_ROOT%\\vcpkg" version
-  - cmd: "%VCPKG_ROOT%\\vcpkg" install libplist
+  - cmd: "%VCPKG_ROOT%\\vcpkg version"
+  - cmd: "%VCPKG_ROOT%\\vcpkg install libplist"
 
 build_script:
   - msbuild libusbmuxd.sln /p:Configuration=Debug /p:Platform=Win32 /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
