@@ -178,7 +178,14 @@ static struct usbmuxd_device_record* device_record_from_plist(plist_t props)
 	if (n && plist_get_node_type(n) == PLIST_STRING) {
 		plist_get_string_val(n, &strval);
 		if (strval) {
-			strncpy(dev->serial_number, strval, 255);
+			// The Apple Mobile Device Service may return 24-character serial numbers on Windows when enumerating
+			// devices. It only accepts 25-digit serial numbers, though, so fix that here.
+			if (strnlen(strval, 255) == 24) {
+				sprintf(dev->serial_number, "%.8s-%s", strval, strval + 8);
+			}
+			else {
+				strncpy(dev->serial_number, strval, 255);
+			}
 			free(strval);
 		}
 	}
