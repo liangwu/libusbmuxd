@@ -282,7 +282,7 @@ USBMUXD_API_MSC int usbmuxd_save_pair_record(const char* record_id, const char *
  *
  * @return 0 on success, a negative error value otherwise.
  */
-int usbmuxd_save_pair_record_with_device_id(const char* record_id, uint32_t device_id, const char *record_data, uint32_t record_size);
+USBMUXD_API_MSC int usbmuxd_save_pair_record_with_device_id(const char* record_id, uint32_t device_id, const char *record_data, uint32_t record_size);
 
 /**
  * Delete a pairing record
