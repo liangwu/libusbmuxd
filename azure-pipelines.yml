@@ -66,6 +66,8 @@ jobs:
     displayName: Build
   - script: |
       make install
+      echo $BUILD_REPOSITORY_URI\n >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
+      echo $BUILD_SOURCEVERSION >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/libusbmuxd' 
@@ -99,6 +101,8 @@ jobs:
     displayName: Build
   - script: |
       make install
+      echo $BUILD_REPOSITORY_URI\n >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
+      echo $BUILD_SOURCEVERSION >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/libusbmuxd' 
