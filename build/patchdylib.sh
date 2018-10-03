@@ -16,7 +16,8 @@ for f in $INSTALLDIR/bin/*; do
 
         # https://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html
         install_name_tool -change $dylib @loader_path/$l.dylib $f
-   done;
+      done
+   done
 
    otool -L $f
 done
