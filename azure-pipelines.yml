@@ -1,8 +1,9 @@
 variables:
-  libplistBuild: 56
+  libplistBuild: 209
 jobs:
 - job: windows
   strategy:
+    maxParallel: 2
     matrix:
       x64:
         BUILD_ARCH: x64
@@ -37,6 +38,19 @@ jobs:
       platform: $(PLATFORM)
       configuration: Debug
     displayName: 'Debug build'
+  - script: |
+      mkdir %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
+      mkdir %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\licenses\
+      copy %PLATFORM%\Release\libusbmuxd.dll %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
+      copy %PLATFORM%\Release\*.exe %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
+      copy vcpkg\installed\%BUILD_ARCH%-windows\share\libusbmuxd\copyright %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\licenses\libusbmuxd.copyright
+    displayName: 'Install'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)/libusbmuxd/' 
+      artifactName: 'libusbmuxd'
+      publishLocation: 'Container'
+    displayName: Publish
 
 - job: macos
   pool:
@@ -61,7 +75,7 @@ jobs:
     displayName: Install autotools
   - script: |
       export PKG_CONFIG_PATH="$SYSTEM_ARTIFACTSDIRECTORY/libplist/$RID/lib/pkgconfig:$PKG_CONFIG_PATH"
-      ./autogen.sh --prefix=$BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID --host=$TARGET --enable-static=yes --enable-shared=no
+      ./autogen.sh --prefix=$BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID --host=$TARGET --enable-static=no --enable-shared=yes
       make
     displayName: Build
   - script: |
@@ -96,7 +110,7 @@ jobs:
     displayName: 'Download libplist artifacts'
   - script: |
       export PKG_CONFIG_PATH="$SYSTEM_ARTIFACTSDIRECTORY/libplist/$RID/lib/pkgconfig:$PKG_CONFIG_PATH"
-      ./autogen.sh --prefix=$BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID --host=$TARGET --enable-static=yes --enable-shared=no
+      ./autogen.sh --prefix=$BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID --host=$TARGET --enable-static=no --enable-shared=yes
       make
     displayName: Build
   - script: |
