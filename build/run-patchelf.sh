@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Patch the so dependencies for all executables in the out directory 
 # Redirect from libimobiledevice.so.6 to libimobiledevice.so,
