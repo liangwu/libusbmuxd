@@ -11,7 +11,8 @@
 
 patchelf=patchelf-0.9/src/patchelf
 
-for f in $INSTALLDIR/{bin,lib}/*; do
+for f in $INSTALLDIR/{bin/*,lib/*.so}; do
+   echo Processing file $f
    chmod +w $f
 
    $patchelf --set-rpath '${ORIGIN}' $f
