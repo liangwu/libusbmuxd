@@ -41,7 +41,7 @@ jobs:
   - script: |
       mkdir %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
       mkdir %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\licenses\
-      copy %PLATFORM%\Release\libusbmuxd.dll %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
+      copy %PLATFORM%\Release\usbmuxd.dll %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
       copy %PLATFORM%\Release\*.exe %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
       copy COPYING %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\licenses\libusbmuxd.copyright
     displayName: 'Install'
