@@ -43,7 +43,7 @@ jobs:
       mkdir %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\licenses\
       copy %PLATFORM%\Release\libusbmuxd.dll %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
       copy %PLATFORM%\Release\*.exe %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\bin\
-      copy vcpkg\installed\%BUILD_ARCH%-windows\share\libusbmuxd\copyright %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\licenses\libusbmuxd.copyright
+      copy COPYING %BUILD_ARTIFACTSTAGINGDIRECTORY%\libusbmuxd\%RID%\licenses\libusbmuxd.copyright
     displayName: 'Install'
   - task: PublishBuildArtifacts@1
     inputs:
