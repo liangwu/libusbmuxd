@@ -80,8 +80,13 @@ jobs:
     displayName: Build
   - script: |
       make install
+
       echo $BUILD_REPOSITORY_URI\n >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
       echo $BUILD_SOURCEVERSION >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
+
+      export INSTALLDIR=$SYSTEM_ARTIFACTSDIRECTORY/libusbmuxd/$RID
+      ./build/patchdylib.sh
+    displayName: Install
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/libusbmuxd' 
@@ -115,8 +120,14 @@ jobs:
     displayName: Build
   - script: |
       make install
+
+      export INSTALLDIR=$SYSTEM_ARTIFACTSDIRECTORY/libimobiledevice/$RID
+      ./build/install-patchelf.sh
+      ./build/run-patchelf.sh
+
       echo $BUILD_REPOSITORY_URI\n >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
       echo $BUILD_SOURCEVERSION >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
+    displayName: Install
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/libusbmuxd' 
