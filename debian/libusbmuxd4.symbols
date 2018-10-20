@@ -14,6 +14,7 @@ libusbmuxd.so.4 libusbmuxd4 #MINVER#
  usbmuxd_recv@Base 1.0.10
  usbmuxd_recv_timeout@Base 1.0.10
  usbmuxd_save_pair_record@Base 1.0.10
+ usbmuxd_save_pair_record_with_device_id@Base 1.11.133-0trusty
  usbmuxd_send@Base 1.0.10
  usbmuxd_set_socket_type@Base 1.11.84-0xenial
  usbmuxd_set_tcp_endpoint@Base 1.11.84-0xenial
