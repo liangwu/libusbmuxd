@@ -135,6 +135,9 @@ jobs:
       echo $BUILD_REPOSITORY_URI\n >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
       echo $BUILD_SOURCEVERSION >> $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/$RID/gitinfo
     displayName: Install
+  - script: |
+      git archive --format tar.gz -o $BUILD_ARTIFACTSTAGINGDIRECTORY/libusbmuxd/libusbmuxd.orig.tar.gz $BUILD_SOURCEVERSION
+    displayName: Build source tarball
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/libusbmuxd' 
