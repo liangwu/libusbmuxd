@@ -7,6 +7,7 @@ libusbmuxd.so.4 libusbmuxd4 #MINVER#
  usbmuxd_get_socket_type@Base 1.11.84-0xenial 
  usbmuxd_get_tcp_endpoint@Base 1.11.84-0xenial
  usbmuxd_disconnect@Base 1.0.10
+ usbmuxd_get_device@Base 1.12.0-1.2.69-0xenial
  usbmuxd_get_device_by_udid@Base 1.0.10
  usbmuxd_get_device_list@Base 1.0.10
  usbmuxd_read_buid@Base 1.0.10
