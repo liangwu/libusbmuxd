@@ -70,7 +70,7 @@ struct client_data {
 	volatile int stop_stoc;
 };
 
-#define USBMUXD_SOCKET_PORT 27015
+#define USBMUXD_SOCKET_PORT 37015
 
 static void *run_stoc_loop(void *arg)
 {
